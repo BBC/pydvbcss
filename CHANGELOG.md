@@ -2,6 +2,8 @@
 
 ## Latest
 
+* Bugfix: fixed semantics on `calcWhen()`, `toParenTicks()` and `toRootTicks()`
+  when clock speed is 0.`
 * ...
 
 ## 0.4.0 : Bugfixes and overhaul of clock object model (new-clock-model)
