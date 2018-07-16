@@ -46,7 +46,7 @@ def _inheritDocs(parentClass, objType="class"):
             # depending on the kind of attribute, the __doc__ string comes from different places        
             if type(parentProp) == types.MethodType and childProp.__doc__ is None:
                 try:
-                    childProp.im_func.__doc__ = processDoc(parentProp.im_func.__doc__)
+                    childProp.__func__.__doc__ = processDoc(parentProp.__func__.__doc__)
                 except:
                     pass
         

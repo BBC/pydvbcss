@@ -112,8 +112,10 @@ system call. It is unclear whether this uses the same underlying counter as `CLO
 
 """
 
-from exceptions import NotImplementedError
-from exceptions import RuntimeError
+try:
+        import exceptions
+except ImportError:
+        import builtins as exceptions
 import os
 import sys
 
@@ -335,8 +337,8 @@ def _Windows_init():
 	LPCTSTR = ctypes.c_char_p
 	BOOL = ctypes.c_int
 	
-	WAIT_ABANDONED = 0x00000000L
-	WAIT_TIMEOUT = 0x00000102L
+	WAIT_ABANDONED = 0x00000000
+	WAIT_TIMEOUT = 0x00000102
 	WAIT_FAILED = 0xFFFFFFFF
 	
 	INFINITE=0xFFFFFFFF
@@ -460,5 +462,5 @@ else:
 
 
 if __name__=="__main__":
-	print "This is a module library. Does nothing when run."
+	print("This is a module library. Does nothing when run.")
 	

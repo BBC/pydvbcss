@@ -97,7 +97,7 @@ def runAt(clock, whenTicks, callBack, args=None, kwargs=None):
     
 
 
-import Queue
+import queue
 
 class _Scheduler(object):
     r"""\
@@ -119,8 +119,8 @@ class _Scheduler(object):
         self.log=logging.getLogger("dvbcss.task._Scheduler")
 
         self.taskheap = []
-        self.addQueue = Queue.Queue()
-        self.rescheduleQueue = Queue.Queue()
+        self.addQueue = queue.Queue()
+        self.rescheduleQueue = queue.Queue()
         self.updateEvent = threading.Event()
         self.clock_Tasks = {}
 
@@ -170,7 +170,7 @@ class _Scheduler(object):
             while not self.rescheduleQueue.empty():
                 clock = self.rescheduleQueue.get_nowait()
                 tasksMap=self.clock_Tasks.get(clock, {})
-                for task in tasksMap.keys():
+                for task in list(tasksMap.keys()):
                     newTask=task.regenerateAndDeprecate()
                     if not math.isnan(newtask.when):
                         heapq.heappush(self.taskheap,(newTask.when, newTask))
@@ -185,7 +185,7 @@ class _Scheduler(object):
                 if not task.deleted:
                     try:
                         task.callBack(*task.args, **task.kwargs)
-                    except Exception, e:
+                    except Exception as e:
                         self.log.error("Exception in scheduling thread: " + str(e))
 
                     # remove from list of tasks that clock notification may need to reschedule    
